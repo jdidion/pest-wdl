@@ -1,0 +1,13 @@
+[package]
+name = "pest-wdl-1"
+description = "WDL 1.x grammar for the pest parsing library"
+version = "0.1.0"
+keywords = ["parsing", "wdl"]
+categories = ["parsing"]
+repository = "https://github.com/jdidion/pest-wdl"
+edition = "2018"
+license = "MIT"
+
+[dependencies]
+pest = "2.5.2"
+pest_derive = "2.5.2"
