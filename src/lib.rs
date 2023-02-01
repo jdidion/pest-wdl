@@ -9,7 +9,7 @@ use pest_derive;
 #[grammar = "wdl.pest"]
 pub struct PestParser;
 
-pub fn parse_document<'a, Text: AsRef<str>>(text: &'a str) -> Result<Pair<'a, Rule>, Error<Rule>> {
+pub fn parse_document<'a>(text: &'a str) -> Result<Pair<'a, Rule>, Error<Rule>> {
     let mut root_pairs = PestParser::parse(Rule::document, text)?;
     root_pairs.next().ok_or_else(|| {
         Error::new_from_pos(
