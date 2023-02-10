@@ -25,12 +25,12 @@ workflow_kw = _{ "workflow" }
 // operators
 or = _{ "||" }
 and = _{ "&&" }
-eq = _{ "==" }
-ne = _{ "!=" }
-gte = _{ ">=" }
-gt = _{ ">" }
-lte = _{ "<=" }
-lt = _{ "<" }
+eq = { "==" }
+ne = { "!=" }
+gte = { ">=" }
+gt = { ">" }
+lte = { "<=" }
+lt = { "<" }
 add = _{ "+" }
 sub = _{ "-" }
 mul = _{ "*" }
@@ -41,7 +41,7 @@ sign = _{ pos | neg }
 pos = { "+" }
 neg = { "-" }
 
-// other hidden symbols
+// hidden symbols
 optional = _{ "?" }
 non_empty = _{ "+" }
 assign = _{ "=" }
@@ -156,25 +156,11 @@ expression = { ternary | disjunction }
 ternary = { if_kw ~ expression ~ then_kw ~ expression ~ else_kw ~ expression }
 disjunction = { conjunction ~ ( or ~ conjunction )* }
 conjunction = { equality ~ ( and ~ equality )* }
-equality = _{ equal | not_equal | comparison }
-equal = { comparison ~ ( eq ~ comparison )+ }
-not_equal = { comparison ~ ( ne ~ comparison )+ }
-comparison = _{ greater_than_or_equal | less_than_or_equal | greater_than | less_than | math1 }
-greater_than_or_equal = { math1 ~ ( gte ~ math1 )+ }
-less_than_or_equal = { math1 ~ ( lte ~ math1 )+ }
-greater_than = { math1 ~ ( gt ~ math1 )+ }
-less_than = { math1 ~ ( lt ~ math1 )+ }
-math1 = _{ addition | subtraction | math2 }
-addition = { math2 ~ ( add ~ math2 )+ }
-subtraction = { math2 ~ ( sub ~ math2 )+ }
-math2 = _{ multiplication | division | remainder | unary }
-multiplication = { unary ~ ( mul ~ unary )+ }
-division = { unary ~ ( div ~ unary )+ }
-remainder = { unary ~ ( mod ~ unary )+ }
-unary = _{ negation | inversion | function }
-negation = { sign ~ function }
-inversion = { not ~ function }
-function = _{ apply | access | primary }
+equality = { comparison ~ ( ( eq | ne ) ~ comparison )* }
+comparison = { math1 ~ ( ( gte | lte | gt | lt ) ~ math1 )* }
+math1 = { math2 ~ ( ( add | sub ) ~ math2 )* }
+math2 = { unary ~ ( ( mul | div | mod ) ~ unary )* }
+unary = _{ ( sign | not )? ~ ( apply | access | primary ) }
 apply = { identifier ~ 
     group_start ~ ( expression ~ ( list_sep ~ expression )* ~ list_sep? )? ~ group_end 
 }
