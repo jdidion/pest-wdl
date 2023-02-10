@@ -15,6 +15,8 @@ fn main() {
     workflow foo {
     }
     "#;
-    let root: Pair<'_, wdl::Rule> = wdl::parse_document(text).expect("Error parsing WDL document");
+    
+    let root: Pair<'_, wdl::Rule> = 
+        wdl::parse_document(text).expect("Error parsing WDL document");
     ...
 }
