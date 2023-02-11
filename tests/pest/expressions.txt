@@ -1,0 +1,747 @@
+Expressions
+===========
+
+version 1.1
+
+workflow Test {
+    # assignment
+
+    Boolean t = true
+    Boolean f = false
+
+    Int i1 = 100
+    Int i2 = -1
+    Int i3 = +1
+    Int i4 = 0xFFFF
+    Int i5 = 0777
+
+    Float f1 = 1e5
+    Float f2 = .123
+    Float f3 = .1e2
+    Float f4 = 1.2
+    Float f5 = 1.2E5
+    Float f6 = +1.0
+    Float f7 = -1.0
+
+    Array[Int] a0 = []
+    Array[Int] a1 = [1, 2, 3]
+
+    Map[Int, Boolean] m0 = {}
+    Map[Int, Boolean] m1 = {
+        1: true,
+        2: false
+    }
+
+    Pair[Int, Float] p1 = (-1, 2.0)
+
+    Object obj0 = object {}
+    Object obj1 = object {
+        a: true,
+        b: 1,
+        c: -1.0
+    }
+
+    Foo foo = Foo {
+        a: true,
+        b: 1,
+        c: -1.0
+    }
+    
+    # binary operations
+
+    Int bin1 = 1 + 2 + 3
+    Int bin2 = 1 + 2 * 3
+    Int bin3 = -(1 + 2) * 3
+    Float bin4 = bin2 / bin3
+
+    Boolean bool1 = true && false 
+    Boolean bool2 = 1 < 2
+    Boolean bool3 = 1 >= 2 || 3 == 4
+    Boolean bool4 = !(true || false)
+
+    # other
+
+    Array[Int?] a2 = [1, None]
+    Int? i = a2[0]
+    Int j = select_first(a2)
+    Int k = select_first([a2[0]])
+    Boolean foo_a = foo.a
+    Int x = if 1 > 2 then 0 else 1
+}
+
+===========
+
+(document
+  (version: "1.1")
+  (workflow
+    (identifier: "Test")
+    (COMMENT: "# assignment")
+    (bound_declaration
+      (typedef
+        (primitive_type: "Boolean")
+      )
+      (identifier: "t")
+      (expression
+        #[skip(depth = 7)]
+        (boolean: "true")
+      )
+    )
+    (bound_declaration
+      (typedef
+        (primitive_type: "Boolean")
+      )
+      (identifier: "f")
+      (expression
+        #[skip(depth = 7)]
+        (boolean: "false")
+      )
+    )
+    (bound_declaration
+      (typedef
+        (primitive_type: "Int")
+      )
+      (identifier: "i1")
+      (expression
+        #[skip(depth = 7)]
+        (dec_int: "100")
+      )
+    )
+    (bound_declaration
+      (typedef
+        (primitive_type: "Int")
+      )
+      (identifier: "i2")
+      (expression
+        #[skip(depth = 6)]
+        (unary
+          (neg: "-")
+          (dec_int: "1")
+        )
+      )
+    )
+    (bound_declaration
+      (typedef
+        (primitive_type: "Int")
+      )
+      (identifier: "i3")
+      (expression
+        #[skip(depth = 6)]
+        (unary
+          (pos: "+")
+          (dec_int: "1")
+        )
+      )
+    )
+    (bound_declaration
+      (typedef
+        (primitive_type: "Int")
+      )
+      (identifier: "i4")
+      (expression
+        #[skip(depth = 7)]
+        (hex_int: "0xFFFF")
+      )
+    )
+    (bound_declaration
+      (typedef
+        (primitive_type: "Int")
+      )
+      (identifier: "i5")
+      (expression
+        #[skip(depth = 7)]
+        (oct_int: "0777")
+      )
+    )
+    (bound_declaration
+      (typedef
+        (primitive_type: "Float")
+      )
+      (identifier: "f1")
+      (expression
+        #[skip(depth = 7)]
+        (float: "1e5")
+      )
+    )
+    (bound_declaration
+      (typedef
+        (primitive_type: "Float")
+      )
+      (identifier: "f2")
+      (expression
+        #[skip(depth = 7)]
+        (float: ".123")
+      )
+    )
+    (bound_declaration
+      (typedef
+        (primitive_type: "Float")
+      )
+      (identifier: "f3")
+      (expression
+        #[skip(depth = 7)]
+        (float: ".1e2")
+      )
+    )
+    (bound_declaration
+      (typedef
+        (primitive_type: "Float")
+      )
+      (identifier: "f4")
+      (expression
+        #[skip(depth = 7)]
+        (float: "1.2")
+      )
+    )
+    (bound_declaration
+      (typedef
+        (primitive_type: "Float")
+      )
+      (identifier: "f5")
+      (expression
+        #[skip(depth = 7)]
+        (float: "1.2E5")
+      )
+    )
+    (bound_declaration
+      (typedef
+        (primitive_type: "Float")
+      )
+      (identifier: "f6")
+      (expression
+        #[skip(depth = 6)]
+        (unary
+          (pos: "+")
+          (float: "1.0")
+        )
+      )
+    )
+    (bound_declaration
+      (typedef
+        (primitive_type: "Float")
+      )
+      (identifier: "f7")
+      (expression
+        #[skip(depth = 6)]
+        (unary
+          (neg: "-")
+          (float: "1.0")
+        )
+      )
+    )
+    (bound_declaration
+      (typedef
+        (array_type
+          (typedef
+            (primitive_type: "Int")
+          )
+        )
+      )
+      (identifier: "a0")
+      (expression
+        #[skip(depth = 7)]
+        (array: "[]")
+      )
+    )
+    (bound_declaration
+      (typedef
+        (array_type
+          (typedef
+            (primitive_type: "Int")
+          )
+        )
+      )
+      (identifier: "a1")
+      (expression
+        #[skip(depth = 7)]
+        (array
+          (expression
+            #[skip(depth = 7)]
+            (dec_int: "1")
+          )
+          (expression
+            #[skip(depth = 7)]
+            (dec_int: "2")
+          )
+          (expression
+            #[skip(depth = 7)]
+            (dec_int: "3")
+          )
+        )
+      )
+    )
+    (bound_declaration
+      (typedef
+        (map_type
+          (typedef
+            (primitive_type: "Int")
+          )
+          (typedef
+            (primitive_type: "Boolean")
+          )
+        )
+      )
+      (identifier: "m0")
+      (expression
+        #[skip(depth = 7)]
+        (map: "{}")
+      )
+    )
+    (bound_declaration
+      (typedef
+        (map_type
+          (typedef
+            (primitive_type: "Int")
+          )
+          (typedef
+            (primitive_type: "Boolean")
+          )
+        )
+      )
+      (identifier: "m1")
+      (expression
+        #[skip(depth = 7)]
+        (map
+          (map_entry
+            (expression
+              #[skip(depth = 7)]
+              (dec_int: "1")
+            )
+            (expression
+              #[skip(depth = 7)]
+              (boolean: "true")
+            )
+          )
+          (map_entry
+            (expression
+              #[skip(depth = 7)]
+              (dec_int: "2")
+            )
+            (expression
+              #[skip(depth = 7)]
+              (boolean: "false")
+            )
+          )
+        )
+      )
+    )
+    (bound_declaration
+      (typedef
+        (pair_type
+          (typedef
+            (primitive_type: "Int")
+          )
+          (typedef
+            (primitive_type: "Float")
+          )
+        )
+      )
+      (identifier: "p1")
+      (expression
+        #[skip(depth = 7)]
+        (pair
+          (expression
+            #[skip(depth = 6)]
+            (unary
+              (neg: "-")
+              (dec_int: "1")
+            )
+          )
+          (expression
+            #[skip(depth = 7)]
+            (float: "2.0")
+          )
+        )
+      )
+    )
+    (bound_declaration
+      (typedef
+        (primitive_type: "Object")
+      )
+      (identifier: "obj0")
+      (expression
+        #[skip(depth = 7)]
+        (object
+          (identifier: "object")
+        )
+      )
+    )
+    (bound_declaration
+      (typedef
+        (primitive_type: "Object")
+      )
+      (identifier: "obj1")
+      (expression
+        #[skip(depth = 7)]
+        (object
+          (identifier: "object")
+          (object_field
+            (identifier: "a")
+            (expression
+              #[skip(depth = 7)]
+              (boolean: "true")
+            )
+          )
+          (object_field
+            (identifier: "b")
+            (expression
+              #[skip(depth = 7)]
+              (dec_int: "1")
+            )
+          )
+          (object_field
+            (identifier: "c")
+            (expression
+              #[skip(depth = 6)]
+              (unary
+                (neg: "-")
+                (float: "1.0")
+              )
+            )
+          )
+        )
+      )
+    )
+    (bound_declaration
+      (typedef
+        (user_type
+          (identifier: "Foo")
+        )
+      )
+      (identifier: "foo")
+      (expression
+        #[skip(depth = 5)]
+        (math2
+          (unary
+            (object
+              (identifier: "Foo")
+              (object_field
+                (identifier: "a")
+                (expression
+                  #[skip(depth = 7)]
+                  (boolean: "true")
+                )
+              )
+              (object_field
+                (identifier: "b")
+                (expression
+                  #[skip(depth = 7)]
+                  (dec_int: "1")
+                )
+              )
+              (object_field
+                (identifier: "c")
+                (expression
+                  #[skip(depth = 6)]
+                  (unary
+                    (neg: "-")
+                    (float: "1.0")
+                  )
+                )
+              )
+            )
+          )
+          (COMMENT: "# binary operations")
+        )
+      )
+    )
+    (bound_declaration
+      (typedef
+        (primitive_type: "Int")
+      )
+      (identifier: "bin1")
+      (expression
+        #[skip(depth = 4)]
+        (math1
+          #[skip(depth = 2)]
+          (dec_int: "1")
+          (add: "+")
+          #[skip(depth = 2)]
+          (dec_int: "2")
+          (add: "+")
+          #[skip(depth = 2)]
+          (dec_int: "3")
+        )
+      )
+    )
+    (bound_declaration
+      (typedef
+        (primitive_type: "Int")
+      )
+      (identifier: "bin2")
+      (expression
+        #[skip(depth = 4)]
+        (math1
+          #[skip(depth = 2)]
+          (dec_int: "1")
+          (add: "+")
+          (math2
+            #[skip(depth = 1)]
+            (dec_int: "2")
+            (mul: "*")
+            #[skip(depth = 1)]
+            (dec_int: "3")
+          )
+        )
+      )
+    )
+    (bound_declaration
+      (typedef
+        (primitive_type: "Int")
+      )
+      (identifier: "bin3")
+      (expression
+        #[skip(depth = 5)]
+        (math2
+          (unary
+            (neg: "-")
+            (group
+              (expression
+                #[skip(depth = 4)]
+                (math1
+                  #[skip(depth = 2)]
+                  (dec_int: "1")
+                  (add: "+")                
+                  #[skip(depth = 2)]
+                  (dec_int: "2")
+                )
+              )
+            )
+          )
+          (mul: "*")
+          (unary
+            (dec_int: "3")
+          )
+        )
+      )
+    )
+    (bound_declaration
+      (typedef
+        (primitive_type: "Float")
+      )
+      (identifier: "bin4")
+      (expression
+        #[skip(depth = 5)]
+        (math2
+          #[skip(depth = 1)]
+          (identifier: "bin2")
+          (div: "/")
+          #[skip(depth = 1)]
+          (identifier: "bin3")
+        )
+      )
+    )
+    (bound_declaration
+      (typedef
+        (primitive_type: "Boolean")
+      )
+      (identifier: "bool1")
+      (expression
+        #[skip(depth = 1)]
+        (conjunction
+          #[skip(depth = 5)]
+          (boolean: "true")
+          #[skip(depth = 5)]
+          (boolean: "false")
+        )
+      )
+    )
+    (bound_declaration
+      (typedef
+        (primitive_type: "Boolean")
+      )
+      (identifier: "bool2")
+      (expression
+        #[skip(depth = 3)]
+        (comparison
+          #[skip(depth = 3)]
+          (dec_int: "1")
+          (lt: "<")
+          #[skip(depth = 3)]
+          (dec_int: "2")
+        )
+      )
+    )
+    (bound_declaration
+      (typedef
+        (primitive_type: "Boolean")
+      )
+      (identifier: "bool3")
+      (expression
+        (disjunction
+          #[skip(depth = 2)]
+          (comparison
+            #[skip(depth = 3)]
+            (dec_int: "1")
+            (gte: ">=")
+            #[skip(depth = 3)]
+            (dec_int: "2")
+          )
+          #[skip(depth = 1)]
+          (equality
+            #[skip(depth = 4)]
+            (dec_int: "3")
+            (eq: "==")
+            #[skip(depth = 4)]
+            (dec_int: "4")
+          )
+        )
+      )
+    )
+    (bound_declaration
+      (typedef
+        (primitive_type: "Boolean")
+      )
+      (identifier: "bool4")
+      (expression
+        #[skip(depth = 5)]
+        (math2
+          (unary
+            (not: "!")
+            (group
+              (expression
+                (disjunction
+                  #[skip(depth = 6)]
+                  (boolean: "true")
+                  #[skip(depth = 6)]
+                  (boolean: "false")
+                )
+              )
+            )
+          )
+          (COMMENT: "# other")
+        )
+      )
+    )
+    (bound_declaration
+      (typedef
+        (array_type
+          (typedef
+            (primitive_type: "Int")
+            (optional: "?")
+          )
+        )
+      )
+      (identifier: "a2")
+      (expression
+        #[skip(depth = 7)]
+        (array
+          (expression
+            #[skip(depth = 7)]
+            (dec_int: "1")
+          )
+          (expression
+            #[skip(depth = 7)]
+            (none: "None")
+          )
+        )
+      )
+    )
+    (bound_declaration
+      (typedef
+        (primitive_type: "Int")
+        (optional: "?")
+      )
+      (identifier: "i")
+      (expression
+        #[skip(depth = 7)]
+        (access
+          (identifier: "a2")
+          (index
+            (expression
+              #[skip(depth = 7)]
+              (dec_int: "0")
+            )
+          )
+        )
+      )
+    )
+    (bound_declaration
+      (typedef
+        (primitive_type: "Int")
+      )
+      (identifier: "j")
+      (expression
+        #[skip(depth = 7)]
+        (apply
+          (identifier: "select_first")
+          (expression
+            #[skip(depth = 7)]
+            (identifier: "a2")
+          )
+        )
+      )
+    )
+    (bound_declaration
+      (typedef
+        (primitive_type: "Int")
+      )
+      (identifier: "k")
+      (expression
+        #[skip(depth = 7)]
+        (apply
+          (identifier: "select_first")
+          (expression
+            #[skip(depth = 7)]
+            (array
+              (expression
+                #[skip(depth = 7)]
+                (access
+                  (identifier: "a2")
+                  (index
+                    (expression
+                      #[skip(depth = 7)]
+                      (dec_int: "0")
+                    )
+                  )
+                )
+              )
+            )
+          )
+        )
+      )
+    )
+    (bound_declaration
+      (typedef
+        (primitive_type: "Boolean")
+      )
+      (identifier: "foo_a")
+      (expression
+        #[skip(depth = 7)]
+        (access
+          (identifier: "foo")
+          (field
+            (identifier: "a")
+          )
+        )
+      )
+    )
+    (bound_declaration
+      (typedef
+        (primitive_type: "Int")
+      )
+      (identifier: "x")
+      (expression
+        (ternary
+          (expression
+            #[skip(depth = 3)]
+            (comparison
+              #[skip(depth = 3)]
+              (dec_int: "1")
+              (gt: ">")
+              #[skip(depth = 3)]
+              (dec_int: "2")
+            )
+          )
+          (expression
+            #[skip(depth = 7)]
+            (dec_int: "0")
+          )
+          (expression
+            #[skip(depth = 7)]
+            (dec_int: "1")
+          )
+        )
+      )
+    )
+  )
+)

@@ -1,0 +1,40 @@
+Comments
+========
+
+version 1.1
+
+# comment 1
+workflow Foo {
+    # comment 2
+    Int i = 2
+    # comment 3
+}
+
+# comment 4
+
+========
+
+(document
+  (version: "1.1")
+  (COMMENT: "# comment 1")
+  (workflow
+    (identifier: "Foo")
+    (COMMENT: "# comment 2")
+    (bound_declaration
+      (typedef
+        (primitive_type: "Int")
+      )
+      (identifier: "i")
+      (expression
+        #[skip(depth = 5)]
+        (math2
+            (unary
+                (dec_int: "2")
+            )
+            (COMMENT: "# comment 3")
+        )
+      )
+    )
+  )
+  (COMMENT: "# comment 4")
+)

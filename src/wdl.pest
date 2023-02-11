@@ -57,6 +57,7 @@ document = { SOI ~ version_kw ~ version ~ document_element+ ~ EOI }
         call = { 
           call_kw ~ qualified_identifier ~ call_alias? ~ ( block_start ~ call_inputs? ~ block_end )? 
         }
+          qualified_identifier = { identifier ~ ( field_sep ~ identifier )* }
           call_alias = { as_kw ~ identifier }
           call_inputs = { 
             input_kw ~ kv_sep ~ ( call_input ~ ( list_sep ~ call_input )* ~ list_sep? )? 
@@ -111,7 +112,7 @@ expression = { ternary | disjunction }
           math1 = { math2 ~ ( ( add | sub ) ~ math2 )* }
             math2 = { unary ~ ( ( mul | div | mod ) ~ unary )* }
               unary = { ( sign | not )? ~ ( apply | access | primary ) }
-                primary = _{ literal | qualified_identifier | group }
+                primary = _{ literal | identifier | group }
                   literal = _{ none | boolean | float | int | string | pair | array | map | object }
                     none = { "None" }
                     string = _{ squote_string | dquote_string }
@@ -152,7 +153,6 @@ expression = { ternary | disjunction }
                       ( object_field ~ ( list_sep ~ object_field )* ~ list_sep? )? ~ block_end 
                     }
                       object_field = { identifier ~ kv_sep ~ expression }
-                  qualified_identifier = { identifier ~ ( field_sep ~ identifier )* }
                   group = { group_start ~ expression ~ group_end }
                 apply = { identifier ~ 
                     group_start ~ ( expression ~ ( list_sep ~ expression )* ~ list_sep? )? ~ group_end 

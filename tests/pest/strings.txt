@@ -134,7 +134,7 @@ workflow Test {
           (dquote_literal: "hello ")
           (tilde_placeholder
             (expression
-              #[skip(depth = 8)]
+              #[skip(depth = 7)]
               (identifier: "name")
             )
           )
@@ -154,7 +154,7 @@ workflow Test {
           (dquote_escape_sequence: "\\\"")
           (tilde_placeholder
             (expression
-              #[skip(depth = 8)]
+              #[skip(depth = 7)]
               (identifier: "name")
             )
           )
