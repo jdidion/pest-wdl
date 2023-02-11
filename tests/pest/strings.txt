@@ -20,198 +20,192 @@ workflow Test {
 =======
 
 (document
-    (version
-        (version_identifier: "1.1")
+  (version: "1.1")
+  (workflow
+    (identifier: "Test")
+    (bound_declaration
+      (typedef
+        (primitive_type: "String")
+      )
+      (identifier: "s1")
+      (expression
+        #[skip(depth = 7)]
+        (dquote_string: "\"\"")
+      )
     )
-    (document_body
-        (workflow
-            (identifier: "Test")
-            (workflow_body
-                (bound_declaration
-                    (typedef
-                        (primitive_type: "String")
-                    )
-                    (identifier: "s1")
-                    (expression
-                        #[skip(depth = 6)]
-                        (dquote_string: "\"\"")
-                    )
-                )
-                (bound_declaration
-                    (typedef
-                        (primitive_type: "String")
-                    )
-                    (identifier: "s2")
-                    (expression
-                        #[skip(depth = 6)]
-                        (squote_string: "''")
-                    )
-                )
-                (bound_declaration
-                    (typedef
-                        (primitive_type: "String")
-                    )
-                    (identifier: "s3")
-                    (expression
-                        #[skip(depth = 6)]
-                        (dquote_string
-                            (dquote_literal: "hello")
-                        )
-                    )
-                )
-                (bound_declaration
-                    (typedef
-                        (primitive_type: "String")
-                    )
-                    (identifier: "s4")
-                    (expression
-                        #[skip(depth = 6)]
-                        (dquote_string
-                            (dquote_literal: "hello ")
-                            (dquote_escape_sequence: "\\"")
-                            (dquote_literal: "John")
-                            (dquote_escape_sequence: "\\"")
-                            (dquote_literal: ", how are you?")
-                        )
-                    )
-                )
-                (bound_declaration
-                    (typedef
-                        (primitive_type: "String")
-                    )
-                    (identifier: "s5")
-                    (expression
-                        #[skip(depth = 6)]
-                        (squote_string
-                            (squote_literal: "hello")
-                        )
-                    )
-                )
-                (bound_declaration
-                    (typedef
-                        (primitive_type: "String")
-                    )
-                    (identifier: "s6")
-                    (expression
-                        #[skip(depth = 6)]
-                        (squote_string
-                            (squote_literal: "hello ")
-                            (squote_escape_sequence: "\'")
-                            (squote_literal: "John")
-                            (squote_escape_sequence: "\'")
-                            (squote_literal: ", how are you?")
-                        )
-                    )
-                )
-                (bound_declaration
-                    (typedef
-                        (primitive_type: "String")
-                    )
-                    (identifier: "s7")
-                    (expression
-                        #[skip(depth = 6)]
-                        (dquote_string
-                            (dquote_literal: "hello 'John', how are you?")
-                        )
-                    )
-                )
-                (bound_declaration
-                    (typedef
-                        (primitive_type: "String")
-                    )
-                    (identifier: "s8")
-                    (expression
-                        #[skip(depth = 6)]
-                        (squote_string
-                            (squote_literal: "hello \"John\", how are you?")
-                        )
-                    )
-                )
-                (bound_declaration
-                    (typedef
-                        (primitive_type: "String")
-                    )
-                    (identifier: "s9")
-                    (expression
-                        #[skip(depth = 6)]
-                        (dquote_string
-                            (dquote_literal: "hello ")
-                            (tilde_placeholder
-                                (expression
-                                    #[skip(depth = 6)]
-                                    (identifier: "name")
-                                )
-                            )
-                            (dquote_literal: ", how are you?")
-                        )
-                    )
-                )
-                (bound_declaration
-                    (typedef
-                        (primitive_type: "String")
-                    )
-                    (identifier: "s10")
-                    (expression
-                        #[skip(depth = 6)]
-                        (dquote_string
-                            (dquote_literal: "hello ")
-                            (dquote_escape_sequence: "\\"")
-                            (tilde_placeholder
-                                (expression
-                                    #[skip(depth = 6)]
-                                    (identifier: "name")
-                                )
-                            )
-                            (dquote_escape_sequence: "\\"")
-                            (dquote_literal: ", how are you?")
-                        )
-                    )
-                )
-                (bound_declaration
-                    (typedef
-                        (primitive_type: "String")
-                    )
-                    (identifier: "s11")
-                    (expression
-                        #[skip(depth = 6)]
-                        (dquote_string
-                            (dquote_literal: "hello ")
-                            (tilde_placeholder
-                                (expression
-                                    #[skip(depth = 6)]
-                                    (apply
-                                        (identifier: "sep")
-                                        (expression
-                                            #[skip(depth = 6)]
-                                            (dquote_string
-                                                (dquote_literal: " ")
-                                            )
-                                        )
-                                        (expression
-                                            #[skip(depth = 6)]
-                                            (array
-                                                (expression
-                                                    #[skip(depth = 6)]
-                                                    (squote_string
-                                                        (squote_literal: "John")
-                                                    )
-                                                )
-                                                (expression
-                                                    #[skip(depth = 6)]
-                                                    (squote_string
-                                                        (squote_literal: "Doe")
-                                                    )
-                                                )
-                                            )
-                                        )
-                                    )
-                                )
-                            )
-                            (dquote_literal: ", how are you?")
-                        )
-                    )
-                )
-            )
+    (bound_declaration
+      (typedef
+        (primitive_type: "String")
+      )
+      (identifier: "s2")
+      (expression
+        #[skip(depth = 7)]
+        (squote_string: "''")
+      )
+    )
+    (bound_declaration
+      (typedef
+        (primitive_type: "String")
+      )
+      (identifier: "s3")
+      (expression
+        #[skip(depth = 7)]
+        (dquote_string
+          (dquote_literal: "hello")
         )
+      )
     )
+    (bound_declaration
+      (typedef
+        (primitive_type: "String")
+      )
+      (identifier: "s4")
+      (expression
+        #[skip(depth = 7)]
+        (dquote_string
+          (dquote_literal: "hello ")
+          (dquote_escape_sequence: "\\\"")
+          (dquote_literal: "John")
+          (dquote_escape_sequence: "\\\"")
+          (dquote_literal: ", how are you?")
+        )
+      )
+    )
+    (bound_declaration
+      (typedef
+        (primitive_type: "String")
+      )
+      (identifier: "s5")
+      (expression
+        #[skip(depth = 7)]
+        (squote_string
+          (squote_literal: "hello")
+        )
+      )
+    )
+    (bound_declaration
+      (typedef
+        (primitive_type: "String")
+      )
+      (identifier: "s6")
+      (expression
+        #[skip(depth = 7)]
+        (squote_string
+          (squote_literal: "hello ")
+          (squote_escape_sequence: "\\'")
+          (squote_literal: "John")
+          (squote_escape_sequence: "\\'")
+          (squote_literal: ", how are you?")
+        )
+      )
+    )
+    (bound_declaration
+      (typedef
+        (primitive_type: "String")
+      )
+      (identifier: "s7")
+      (expression
+        #[skip(depth = 7)]
+        (dquote_string
+          (dquote_literal: "hello 'John', how are you?")
+        )
+      )
+    )
+    (bound_declaration
+      (typedef
+        (primitive_type: "String")
+      )
+      (identifier: "s8")
+      (expression
+        #[skip(depth = 7)]
+        (squote_string
+          (squote_literal: "hello \"John\", how are you?")
+        )
+      )
+    )
+    (bound_declaration
+      (typedef
+        (primitive_type: "String")
+      )
+      (identifier: "s9")
+      (expression
+        #[skip(depth = 7)]
+        (dquote_string
+          (dquote_literal: "hello ")
+          (tilde_placeholder
+            (expression
+              #[skip(depth = 8)]
+              (identifier: "name")
+            )
+          )
+          (dquote_literal: ", how are you?")
+        )
+      )
+    )
+    (bound_declaration
+      (typedef
+        (primitive_type: "String")
+      )
+      (identifier: "s10")
+      (expression
+        #[skip(depth = 7)]
+        (dquote_string
+          (dquote_literal: "hello ")
+          (dquote_escape_sequence: "\\\"")
+          (tilde_placeholder
+            (expression
+              #[skip(depth = 8)]
+              (identifier: "name")
+            )
+          )
+          (dquote_escape_sequence: "\\\"")
+          (dquote_literal: ", how are you?")
+        )
+      )
+    )
+    (bound_declaration
+      (typedef
+        (primitive_type: "String")
+      )
+      (identifier: "s11")
+      (expression
+        #[skip(depth = 7)]
+        (dquote_string
+          (dquote_literal: "hello ")
+          (tilde_placeholder
+            (expression
+              #[skip(depth = 7)]
+              (apply
+                (identifier: "sep")
+                (expression
+                  #[skip(depth = 7)]
+                  (dquote_string
+                    (dquote_literal: " ")
+                  )
+                )
+                (expression
+                  #[skip(depth = 7)]
+                  (array
+                    (expression
+                      #[skip(depth = 7)]
+                      (squote_string
+                        (squote_literal: "John")
+                      )
+                    )
+                    (expression
+                      #[skip(depth = 7)]
+                      (squote_string
+                        (squote_literal: "Doe")
+                      )
+                    )
+                  )
+                )
+              )
+            )
+          )
+          (dquote_literal: ", how are you?")
+        )
+      )
+    )
+  )
 )

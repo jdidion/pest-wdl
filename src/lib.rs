@@ -20,9 +20,3 @@ pub fn parse_document<'a>(text: &'a str) -> Result<Pair<'a, Rule>, Error<Rule>> 
         )
     })
 }
-
-pub mod expr {
-    #[derive(pest_derive::Parser)]
-    #[grammar = "expr.pest"]
-    pub struct ExprParser;
-}
