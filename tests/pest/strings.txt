@@ -29,7 +29,7 @@ workflow Test {
       )
       (identifier: "s1")
       (expression
-        #[skip(depth = 7)]
+        #[skip(depth = 8)]
         (dquote_string: "\"\"")
       )
     )
@@ -39,7 +39,7 @@ workflow Test {
       )
       (identifier: "s2")
       (expression
-        #[skip(depth = 7)]
+        #[skip(depth = 8)]
         (squote_string: "''")
       )
     )
@@ -49,7 +49,7 @@ workflow Test {
       )
       (identifier: "s3")
       (expression
-        #[skip(depth = 7)]
+        #[skip(depth = 8)]
         (dquote_string
           (dquote_literal: "hello")
         )
@@ -61,7 +61,7 @@ workflow Test {
       )
       (identifier: "s4")
       (expression
-        #[skip(depth = 7)]
+        #[skip(depth = 8)]
         (dquote_string
           (dquote_literal: "hello ")
           (dquote_escape_sequence: "\\\"")
@@ -77,7 +77,7 @@ workflow Test {
       )
       (identifier: "s5")
       (expression
-        #[skip(depth = 7)]
+        #[skip(depth = 8)]
         (squote_string
           (squote_literal: "hello")
         )
@@ -89,7 +89,7 @@ workflow Test {
       )
       (identifier: "s6")
       (expression
-        #[skip(depth = 7)]
+        #[skip(depth = 8)]
         (squote_string
           (squote_literal: "hello ")
           (squote_escape_sequence: "\\'")
@@ -105,7 +105,7 @@ workflow Test {
       )
       (identifier: "s7")
       (expression
-        #[skip(depth = 7)]
+        #[skip(depth = 8)]
         (dquote_string
           (dquote_literal: "hello 'John', how are you?")
         )
@@ -117,7 +117,7 @@ workflow Test {
       )
       (identifier: "s8")
       (expression
-        #[skip(depth = 7)]
+        #[skip(depth = 8)]
         (squote_string
           (squote_literal: "hello \"John\", how are you?")
         )
@@ -129,12 +129,12 @@ workflow Test {
       )
       (identifier: "s9")
       (expression
-        #[skip(depth = 7)]
+        #[skip(depth = 8)]
         (dquote_string
           (dquote_literal: "hello ")
           (tilde_placeholder
             (expression
-              #[skip(depth = 7)]
+              #[skip(depth = 8)]
               (identifier: "name")
             )
           )
@@ -148,13 +148,13 @@ workflow Test {
       )
       (identifier: "s10")
       (expression
-        #[skip(depth = 7)]
+        #[skip(depth = 8)]
         (dquote_string
           (dquote_literal: "hello ")
           (dquote_escape_sequence: "\\\"")
           (tilde_placeholder
             (expression
-              #[skip(depth = 7)]
+              #[skip(depth = 8)]
               (identifier: "name")
             )
           )
@@ -169,31 +169,31 @@ workflow Test {
       )
       (identifier: "s11")
       (expression
-        #[skip(depth = 7)]
+        #[skip(depth = 8)]
         (dquote_string
           (dquote_literal: "hello ")
           (tilde_placeholder
             (expression
-              #[skip(depth = 7)]
+              #[skip(depth = 8)]
               (apply
                 (identifier: "sep")
                 (expression
-                  #[skip(depth = 7)]
+                  #[skip(depth = 8)]
                   (dquote_string
                     (dquote_literal: " ")
                   )
                 )
                 (expression
-                  #[skip(depth = 7)]
+                  #[skip(depth = 8)]
                   (array
                     (expression
-                      #[skip(depth = 7)]
+                      #[skip(depth = 8)]
                       (squote_string
                         (squote_literal: "John")
                       )
                     )
                     (expression
-                      #[skip(depth = 7)]
+                      #[skip(depth = 8)]
                       (squote_string
                         (squote_literal: "Doe")
                       )

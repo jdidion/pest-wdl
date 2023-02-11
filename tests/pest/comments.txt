@@ -28,10 +28,12 @@ workflow Foo {
       (expression
         #[skip(depth = 5)]
         (math2
-            (unary
-                (dec_int: "2")
+          (unary
+            (access
+              (dec_int: "2")
+              (COMMENT: "# comment 3")
             )
-            (COMMENT: "# comment 3")
+          ) 
         )
       )
     )

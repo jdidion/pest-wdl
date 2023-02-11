@@ -8,27 +8,31 @@ document = { SOI ~ version_kw ~ version ~ document_element+ ~ EOI }
     structdef = { struct_kw ~ identifier ~ block_start ~ unbound_declaration* ~ block_end }
     task = { task_kw ~ identifier ~ block_start ~ task_element+ ~ block_end }
       task_element = _{ common_element | bound_declaration | command | runtime }
-        command = { command_kw ~ ( command_heredoc | command_block ) }
+        command = _{ command_kw ~ ( command_heredoc | command_block ) }
           command_heredoc = ${ left_heredoc ~ command_heredoc_element* ~ right_heredoc }
             command_heredoc_element = _{ 
-              command_heredoc_escape_sequence | tilde_placeholder | command_heredoc_literal_sequence 
+              command_heredoc_escape_sequence | tilde_placeholder | command_heredoc_literal 
             }
             command_heredoc_escape_sequence = @{ escape ~ ( ">" | "~" | "\\" ) }
-            command_heredoc_literal_sequence = @{ 
-              ">" | ">>" | ">"{4,} | ( !( ">" | left_heredoc | escape ) ~ ANY )+ 
+            command_heredoc_literal = @{
+              ">"{4,} | ( !command_heredoc_literal_exclude ~ ANY )+
             }
+              command_heredoc_literal_exclude = _{
+                right_heredoc | tilde_placeholder_start | command_heredoc_escape_sequence
+              }
           command_block = _{ single_line_command_block | multi_line_command_block }
             command_block_escape_sequence = @{ escape ~ ( "}" | "~" | "$" | "\\" ) }
             single_line_command_block = ${ block_start ~ single_line_command_block_element* ~ block_end }
               single_line_command_block_element = _{
                 command_block_escape_sequence | tilde_placeholder | dollar_placeholder |
-                single_line_command_block_literal_sequence
+                single_line_command_block_literal
               }
-              single_line_command_block_literal_sequence = @{ 
+              single_line_command_block_literal = @{ 
                   ( !single_line_command_block_literal_exclude ~ ANY )+ 
               }
                 single_line_command_block_literal_exclude = _{
-                  block_end | tilde_placeholder_start | dollar_placeholder_start | escape | NEWLINE
+                  block_end | tilde_placeholder_start | dollar_placeholder_start | 
+                  command_block_escape_sequence | NEWLINE
                 }
             // Pest parsers are greedy, WDL doesn't require '}' to be escaped within a command 
             // block, and there is no requirement that braces be matched within a command block, 
@@ -38,15 +42,15 @@ document = { SOI ~ version_kw ~ version ~ document_element+ ~ EOI }
             }
               multi_line_command_block_element = _{ 
                 command_block_escape_sequence | tilde_placeholder | dollar_placeholder |
-                multi_line_command_block_literal_sequence
+                multi_line_command_block_literal
               }
               multi_line_command_block_end = @{ NEWLINE ~ indent* ~ block_end }
-              multi_line_command_block_literal_sequence = @{ 
+              multi_line_command_block_literal = @{ 
                   ( !multi_line_command_block_literal_exclude ~ ANY )+ | "\\"
               }
                 multi_line_command_block_literal_exclude = _{
-                  tilde_placeholder_start | dollar_placeholder_start | escape | 
-                  multi_line_command_block_end 
+                  tilde_placeholder_start | dollar_placeholder_start | 
+                  command_block_escape_sequence | multi_line_command_block_end 
                 }
         runtime = { runtime_kw ~ block_start ~ runtime_attribute* ~ block_end }
           runtime_attribute = { identifier ~ kv_sep ~ expression }
@@ -59,7 +63,7 @@ document = { SOI ~ version_kw ~ version ~ document_element+ ~ EOI }
         }
           qualified_identifier = { identifier ~ ( field_sep ~ identifier )* }
           call_alias = { as_kw ~ identifier }
-          call_inputs = { 
+          call_inputs = _{ 
             input_kw ~ kv_sep ~ ( call_input ~ ( list_sep ~ call_input )* ~ list_sep? )? 
           }
           call_input = { identifier ~ ( assign ~ expression )? }
@@ -83,7 +87,7 @@ common_element = _{ input | output | meta | parameter_meta }
   meta_attribute = { identifier ~ kv_sep ~ meta_value }
     meta_value = _{ null | boolean | meta_number | simple_string | meta_array | meta_object }
       null = { "null" }
-      meta_number = { sign? ~ ( int | float ) }
+      meta_number = { sign? ~ ( float | int ) }
       meta_array = { 
         list_start ~ ( meta_value ~ ( list_sep ~ meta_value )* ~ list_sep? )? ~ list_end 
       }
@@ -110,8 +114,14 @@ expression = { ternary | disjunction }
       equality = { comparison ~ ( ( eq | ne ) ~ comparison )* }
         comparison = { math1 ~ ( ( gte | lte | gt | lt ) ~ math1 )* }
           math1 = { math2 ~ ( ( add | sub ) ~ math2 )* }
-            math2 = { unary ~ ( ( mul | div | mod ) ~ unary )* }
-              unary = { ( sign | not )? ~ ( apply | access | primary ) }
+            math2 = { unary ~ ( ( mul |   div | mod ) ~ unary )* }
+              unary = { ( sign | not )? ~ access }
+                access = { ( apply | primary ) ~ ( index | field )* }
+                  index = { list_start ~ expression ~ list_end }
+                  field = { field_sep ~ identifier }
+                apply = { identifier ~ 
+                    group_start ~ ( expression ~ ( list_sep ~ expression )* ~ list_sep? )? ~ group_end 
+                }
                 primary = _{ literal | identifier | group }
                   literal = _{ none | boolean | float | int | string | pair | array | map | object }
                     none = { "None" }
@@ -154,13 +164,8 @@ expression = { ternary | disjunction }
                     }
                       object_field = { identifier ~ kv_sep ~ expression }
                   group = { group_start ~ expression ~ group_end }
-                apply = { identifier ~ 
-                    group_start ~ ( expression ~ ( list_sep ~ expression )* ~ list_sep? )? ~ group_end 
-                }
-                access = { primary ~ ( index | field )+ }
-                  index = { list_start ~ expression ~ list_end }
-                  field = { field_sep ~ identifier }
-
+                
+                
 /* primitive literals */
 identifier = @{ ASCII_ALPHA ~ ( ASCII_ALPHANUMERIC | "_" )* }
 boolean = { "true" | "false" }

@@ -82,7 +82,7 @@ workflow Test {
       )
       (identifier: "t")
       (expression
-        #[skip(depth = 7)]
+        #[skip(depth = 8)]
         (boolean: "true")
       )
     )
@@ -92,7 +92,7 @@ workflow Test {
       )
       (identifier: "f")
       (expression
-        #[skip(depth = 7)]
+        #[skip(depth = 8)]
         (boolean: "false")
       )
     )
@@ -102,7 +102,7 @@ workflow Test {
       )
       (identifier: "i1")
       (expression
-        #[skip(depth = 7)]
+        #[skip(depth = 8)]
         (dec_int: "100")
       )
     )
@@ -115,6 +115,7 @@ workflow Test {
         #[skip(depth = 6)]
         (unary
           (neg: "-")
+          #[skip(depth = 1)]
           (dec_int: "1")
         )
       )
@@ -128,6 +129,7 @@ workflow Test {
         #[skip(depth = 6)]
         (unary
           (pos: "+")
+          #[skip(depth = 1)]
           (dec_int: "1")
         )
       )
@@ -138,7 +140,7 @@ workflow Test {
       )
       (identifier: "i4")
       (expression
-        #[skip(depth = 7)]
+        #[skip(depth = 8)]
         (hex_int: "0xFFFF")
       )
     )
@@ -148,7 +150,7 @@ workflow Test {
       )
       (identifier: "i5")
       (expression
-        #[skip(depth = 7)]
+        #[skip(depth = 8)]
         (oct_int: "0777")
       )
     )
@@ -158,7 +160,7 @@ workflow Test {
       )
       (identifier: "f1")
       (expression
-        #[skip(depth = 7)]
+        #[skip(depth = 8)]
         (float: "1e5")
       )
     )
@@ -168,7 +170,7 @@ workflow Test {
       )
       (identifier: "f2")
       (expression
-        #[skip(depth = 7)]
+        #[skip(depth = 8)]
         (float: ".123")
       )
     )
@@ -178,7 +180,7 @@ workflow Test {
       )
       (identifier: "f3")
       (expression
-        #[skip(depth = 7)]
+        #[skip(depth = 8)]
         (float: ".1e2")
       )
     )
@@ -188,7 +190,7 @@ workflow Test {
       )
       (identifier: "f4")
       (expression
-        #[skip(depth = 7)]
+        #[skip(depth = 8)]
         (float: "1.2")
       )
     )
@@ -198,7 +200,7 @@ workflow Test {
       )
       (identifier: "f5")
       (expression
-        #[skip(depth = 7)]
+        #[skip(depth = 8)]
         (float: "1.2E5")
       )
     )
@@ -211,6 +213,7 @@ workflow Test {
         #[skip(depth = 6)]
         (unary
           (pos: "+")
+          #[skip(depth = 1)]
           (float: "1.0")
         )
       )
@@ -224,6 +227,7 @@ workflow Test {
         #[skip(depth = 6)]
         (unary
           (neg: "-")
+          #[skip(depth = 1)]
           (float: "1.0")
         )
       )
@@ -238,7 +242,7 @@ workflow Test {
       )
       (identifier: "a0")
       (expression
-        #[skip(depth = 7)]
+        #[skip(depth = 8)]
         (array: "[]")
       )
     )
@@ -252,18 +256,18 @@ workflow Test {
       )
       (identifier: "a1")
       (expression
-        #[skip(depth = 7)]
+        #[skip(depth = 8)]
         (array
           (expression
-            #[skip(depth = 7)]
+            #[skip(depth = 8)]
             (dec_int: "1")
           )
           (expression
-            #[skip(depth = 7)]
+            #[skip(depth = 8)]
             (dec_int: "2")
           )
           (expression
-            #[skip(depth = 7)]
+            #[skip(depth = 8)]
             (dec_int: "3")
           )
         )
@@ -282,7 +286,7 @@ workflow Test {
       )
       (identifier: "m0")
       (expression
-        #[skip(depth = 7)]
+        #[skip(depth = 8)]
         (map: "{}")
       )
     )
@@ -299,25 +303,25 @@ workflow Test {
       )
       (identifier: "m1")
       (expression
-        #[skip(depth = 7)]
+        #[skip(depth = 8)]
         (map
           (map_entry
             (expression
-              #[skip(depth = 7)]
+              #[skip(depth = 8)]
               (dec_int: "1")
             )
             (expression
-              #[skip(depth = 7)]
+              #[skip(depth = 8)]
               (boolean: "true")
             )
           )
           (map_entry
             (expression
-              #[skip(depth = 7)]
+              #[skip(depth = 8)]
               (dec_int: "2")
             )
             (expression
-              #[skip(depth = 7)]
+              #[skip(depth = 8)]
               (boolean: "false")
             )
           )
@@ -337,17 +341,18 @@ workflow Test {
       )
       (identifier: "p1")
       (expression
-        #[skip(depth = 7)]
+        #[skip(depth = 8)]
         (pair
           (expression
             #[skip(depth = 6)]
             (unary
               (neg: "-")
+              #[skip(depth = 1)]
               (dec_int: "1")
             )
           )
           (expression
-            #[skip(depth = 7)]
+            #[skip(depth = 8)]
             (float: "2.0")
           )
         )
@@ -359,7 +364,7 @@ workflow Test {
       )
       (identifier: "obj0")
       (expression
-        #[skip(depth = 7)]
+        #[skip(depth = 8)]
         (object
           (identifier: "object")
         )
@@ -371,20 +376,20 @@ workflow Test {
       )
       (identifier: "obj1")
       (expression
-        #[skip(depth = 7)]
+        #[skip(depth = 8)]
         (object
           (identifier: "object")
           (object_field
             (identifier: "a")
             (expression
-              #[skip(depth = 7)]
+              #[skip(depth = 8)]
               (boolean: "true")
             )
           )
           (object_field
             (identifier: "b")
             (expression
-              #[skip(depth = 7)]
+              #[skip(depth = 8)]
               (dec_int: "1")
             )
           )
@@ -394,6 +399,7 @@ workflow Test {
               #[skip(depth = 6)]
               (unary
                 (neg: "-")
+                #[skip(depth = 1)]
                 (float: "1.0")
               )
             )
@@ -412,35 +418,38 @@ workflow Test {
         #[skip(depth = 5)]
         (math2
           (unary
-            (object
-              (identifier: "Foo")
-              (object_field
-                (identifier: "a")
-                (expression
-                  #[skip(depth = 7)]
-                  (boolean: "true")
+            (access
+              (object
+                (identifier: "Foo")
+                (object_field
+                  (identifier: "a")
+                  (expression
+                    #[skip(depth = 8)]
+                    (boolean: "true")
+                  )
                 )
-              )
-              (object_field
-                (identifier: "b")
-                (expression
-                  #[skip(depth = 7)]
-                  (dec_int: "1")
+                (object_field
+                  (identifier: "b")
+                  (expression
+                    #[skip(depth = 8)]
+                    (dec_int: "1")
+                  )
                 )
-              )
-              (object_field
-                (identifier: "c")
-                (expression
-                  #[skip(depth = 6)]
-                  (unary
-                    (neg: "-")
-                    (float: "1.0")
+                (object_field
+                  (identifier: "c")
+                  (expression
+                    #[skip(depth = 6)]
+                    (unary
+                      (neg: "-")
+                      #[skip(depth = 1)]
+                      (float: "1.0")
+                    )
                   )
                 )
               )
+              (COMMENT: "# binary operations")
             )
           )
-          (COMMENT: "# binary operations")
         )
       )
     )
@@ -452,13 +461,13 @@ workflow Test {
       (expression
         #[skip(depth = 4)]
         (math1
-          #[skip(depth = 2)]
+          #[skip(depth = 3)]
           (dec_int: "1")
           (add: "+")
-          #[skip(depth = 2)]
+          #[skip(depth = 3)]
           (dec_int: "2")
           (add: "+")
-          #[skip(depth = 2)]
+          #[skip(depth = 3)]
           (dec_int: "3")
         )
       )
@@ -471,14 +480,14 @@ workflow Test {
       (expression
         #[skip(depth = 4)]
         (math1
-          #[skip(depth = 2)]
+          #[skip(depth = 3)]
           (dec_int: "1")
           (add: "+")
           (math2
-            #[skip(depth = 1)]
+            #[skip(depth = 2)]
             (dec_int: "2")
             (mul: "*")
-            #[skip(depth = 1)]
+            #[skip(depth = 2)]
             (dec_int: "3")
           )
         )
@@ -494,23 +503,23 @@ workflow Test {
         (math2
           (unary
             (neg: "-")
+            #[skip(depth = 1)]
             (group
               (expression
                 #[skip(depth = 4)]
                 (math1
-                  #[skip(depth = 2)]
+                  #[skip(depth = 3)]
                   (dec_int: "1")
                   (add: "+")                
-                  #[skip(depth = 2)]
+                  #[skip(depth = 3)]
                   (dec_int: "2")
                 )
               )
             )
           )
           (mul: "*")
-          (unary
-            (dec_int: "3")
-          )
+          #[skip(depth = 2)]
+          (dec_int: "3")
         )
       )
     )
@@ -522,10 +531,10 @@ workflow Test {
       (expression
         #[skip(depth = 5)]
         (math2
-          #[skip(depth = 1)]
+          #[skip(depth = 2)]
           (identifier: "bin2")
           (div: "/")
-          #[skip(depth = 1)]
+          #[skip(depth = 2)]
           (identifier: "bin3")
         )
       )
@@ -538,9 +547,9 @@ workflow Test {
       (expression
         #[skip(depth = 1)]
         (conjunction
-          #[skip(depth = 5)]
+          #[skip(depth = 6)]
           (boolean: "true")
-          #[skip(depth = 5)]
+          #[skip(depth = 6)]
           (boolean: "false")
         )
       )
@@ -553,10 +562,10 @@ workflow Test {
       (expression
         #[skip(depth = 3)]
         (comparison
-          #[skip(depth = 3)]
+          #[skip(depth = 4)]
           (dec_int: "1")
           (lt: "<")
-          #[skip(depth = 3)]
+          #[skip(depth = 4)]
           (dec_int: "2")
         )
       )
@@ -570,18 +579,18 @@ workflow Test {
         (disjunction
           #[skip(depth = 2)]
           (comparison
-            #[skip(depth = 3)]
+            #[skip(depth = 4)]
             (dec_int: "1")
             (gte: ">=")
-            #[skip(depth = 3)]
+            #[skip(depth = 4)]
             (dec_int: "2")
           )
           #[skip(depth = 1)]
           (equality
-            #[skip(depth = 4)]
+            #[skip(depth = 5)]
             (dec_int: "3")
             (eq: "==")
-            #[skip(depth = 4)]
+            #[skip(depth = 5)]
             (dec_int: "4")
           )
         )
@@ -597,18 +606,20 @@ workflow Test {
         (math2
           (unary
             (not: "!")
-            (group
-              (expression
-                (disjunction
-                  #[skip(depth = 6)]
-                  (boolean: "true")
-                  #[skip(depth = 6)]
-                  (boolean: "false")
+            (access
+              (group
+                (expression
+                  (disjunction
+                    #[skip(depth = 7)]
+                    (boolean: "true")
+                    #[skip(depth = 7)]
+                    (boolean: "false")
+                  )
                 )
               )
+              (COMMENT: "# other")
             )
           )
-          (COMMENT: "# other")
         )
       )
     )
@@ -623,14 +634,14 @@ workflow Test {
       )
       (identifier: "a2")
       (expression
-        #[skip(depth = 7)]
+        #[skip(depth = 8)]
         (array
           (expression
-            #[skip(depth = 7)]
+            #[skip(depth = 8)]
             (dec_int: "1")
           )
           (expression
-            #[skip(depth = 7)]
+            #[skip(depth = 8)]
             (none: "None")
           )
         )
@@ -648,7 +659,7 @@ workflow Test {
           (identifier: "a2")
           (index
             (expression
-              #[skip(depth = 7)]
+              #[skip(depth = 8)]
               (dec_int: "0")
             )
           )
@@ -661,11 +672,11 @@ workflow Test {
       )
       (identifier: "j")
       (expression
-        #[skip(depth = 7)]
+        #[skip(depth = 8)]
         (apply
           (identifier: "select_first")
           (expression
-            #[skip(depth = 7)]
+            #[skip(depth = 8)]
             (identifier: "a2")
           )
         )
@@ -677,11 +688,11 @@ workflow Test {
       )
       (identifier: "k")
       (expression
-        #[skip(depth = 7)]
+        #[skip(depth = 8)]
         (apply
           (identifier: "select_first")
           (expression
-            #[skip(depth = 7)]
+            #[skip(depth = 8)]
             (array
               (expression
                 #[skip(depth = 7)]
@@ -689,7 +700,7 @@ workflow Test {
                   (identifier: "a2")
                   (index
                     (expression
-                      #[skip(depth = 7)]
+                      #[skip(depth = 8)]
                       (dec_int: "0")
                     )
                   )
@@ -725,19 +736,19 @@ workflow Test {
           (expression
             #[skip(depth = 3)]
             (comparison
-              #[skip(depth = 3)]
+              #[skip(depth = 4)]
               (dec_int: "1")
               (gt: ">")
-              #[skip(depth = 3)]
+              #[skip(depth = 4)]
               (dec_int: "2")
             )
           )
           (expression
-            #[skip(depth = 7)]
+            #[skip(depth = 8)]
             (dec_int: "0")
           )
           (expression
-            #[skip(depth = 7)]
+            #[skip(depth = 8)]
             (dec_int: "1")
           )
         )
