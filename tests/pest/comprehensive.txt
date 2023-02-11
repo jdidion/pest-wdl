@@ -1,0 +1,504 @@
+Comprehensive Test
+==================
+
+version 1.1
+
+import "local.wdl" as local alias Foo as Bar
+import "https://example.com/remote.wdl" as remote alias Baz as Blorf
+
+struct Example1 {
+    Float f
+    Map[String, Int] m
+}
+
+struct Example2 {
+    String s
+    Int? i
+    Array[File?]+ a
+    Example1 e
+}
+
+workflow Workflow1 {
+    input {
+        String s
+        Int i = 0
+        Example2? ex
+    }
+
+    Float f = i + 1.0
+    Array[File] file_array = if defined(ex) then select_all(select_first([ex]).a) else []
+    
+    call local.foo
+    call local.foo as bar {}
+    call local.baz {
+        input:
+    }
+    call remote.waldo {
+        input:
+            x = 1,
+            y = false
+    }
+
+    if (1 > 2) {
+        scatter (file in file_array) {
+            call task1 {
+                input:
+                  file,
+                  ex,
+                  docker_image = "ubuntu"
+            }
+        }
+    }
+
+    output {
+        Array[File]? f = task1.name_file
+    }
+
+    meta {
+        description: "Test workflow"
+        test: true
+        size: 10
+        numbers: [1, 2, 3]
+        keywords: {
+            a: 1.0,
+            b: -1
+        }
+        x: null
+    }
+}
+
+task Task1 {
+    input {
+        File file
+        Example2? ex
+        String docker_image
+    }
+
+    command <<<
+    echo ~{file} \
+      | cat
+    >>>
+
+    output {
+        File name_file = stdout()
+    }
+    
+    runtime {
+        container: docker_image
+    }
+
+    meta {
+        description: "write name to file"
+    }
+}
+
+==================
+
+(document
+  (version: "1.1")
+  (import
+    (simple_dquote_string
+      (simple_dquote_literal: "local.wdl")
+    )
+    (namespace
+      (identifier: "local")
+    )
+    (alias
+      (identifier: "Foo")
+      (identifier: "Bar")
+    )
+  )
+  (import
+    (simple_dquote_string
+      (simple_dquote_literal: "https://example.com/remote.wdl")
+    )
+    (namespace
+      (identifier: "remote")
+    )
+    (alias
+      (identifier: "Baz")
+      (identifier: "Blorf")
+    )
+  )
+  (structdef
+    (identifier: "Example1")
+    (unbound_declaration
+      (typedef
+        (primitive_type: "Float")
+      )
+      (identifier: "f")
+    )
+    (unbound_declaration
+      (typedef
+        (map_type
+          (typedef
+            (primitive_type: "String")
+          )
+          (typedef
+            (primitive_type: "Int")
+          )
+        )
+      )
+      (identifier: "m")
+    )
+  )
+  (structdef
+    (identifier: "Example2")
+    (unbound_declaration
+      (typedef
+        (primitive_type: "String")
+      )
+      (identifier: "s")
+    )
+    (unbound_declaration
+      (typedef
+        (primitive_type: "Int")
+        (optional: "?")
+      )
+      (identifier: "i")
+    )
+    (unbound_declaration
+      (typedef
+        (array_type
+          (typedef
+            (primitive_type: "File")
+            (optional: "?")
+          )
+          (non_empty: "+")
+        )
+      )
+      (identifier: "a")
+    )
+    (unbound_declaration
+      (typedef
+        (user_type
+          (identifier: "Example1")
+        )
+      )
+      (identifier: "e")
+    )
+  )
+  (workflow
+    (identifier: "Workflow1")
+    (input
+      (unbound_declaration
+        (typedef
+          (primitive_type: "String")
+        )
+        (identifier: "s")
+      )
+      (bound_declaration
+        (typedef
+          (primitive_type: "Int")
+        )
+        (identifier: "i")
+        (expression
+          #[skip(depth = 8)]
+          (dec_int: "0")
+        )
+      )
+      (unbound_declaration
+        (typedef
+          (user_type
+            (identifier: "Example2")
+          )
+          (optional: "?")
+        )
+        (identifier: "ex")
+      )
+    )
+    (bound_declaration
+      (typedef
+        (primitive_type: "Float")
+      )
+      (identifier: "f")
+      (expression
+        #[skip(depth = 4)]
+        (math1
+          #[skip(depth = 3)]
+          (identifier: "i")
+          (add: "+")
+          #[skip(depth = 3)]
+          (float: "1.0")
+        )
+      )
+    )
+    (bound_declaration
+      (typedef
+        (array_type
+          (typedef
+            (primitive_type: "File")
+          )
+        )
+      )
+      (identifier: "file_array")
+      (expression
+        (ternary
+          (expression
+            #[skip(depth = 8)]
+            (apply
+              (identifier: "defined")
+              (expression
+                #[skip(depth = 8)]
+                (identifier: "ex")
+              )
+            )
+          )
+          (expression
+            #[skip(depth = 8)]
+            (apply
+              (identifier: "select_all")
+              (expression
+                #[skip(depth = 7)]
+                (access
+                  (apply
+                    (identifier: "select_first")
+                    (expression
+                      #[skip(depth = 8)]
+                      (array
+                        (expression
+                          #[skip(depth = 8)]
+                          (identifier: "ex")
+                        )
+                      )
+                    )
+                  )
+                  (field
+                    (identifier: "a")
+                  )
+                )
+              )
+            )
+          )
+          (expression
+            #[skip(depth = 8)]
+            (array: "[]")
+          )
+        )
+      )
+    )
+    (call
+      (qualified_identifier
+        (identifier: "local")
+        (identifier: "foo")
+      )
+    )
+    (call
+      (qualified_identifier
+        (identifier: "local")
+        (identifier: "foo")
+      )
+      (call_alias
+        (identifier: "bar")
+      )
+    )
+    (call
+      (qualified_identifier
+        (identifier: "local")
+        (identifier: "baz")
+      )
+    )
+    (call
+      (qualified_identifier
+        (identifier: "remote")
+        (identifier: "waldo")
+      )
+      (call_input
+        (identifier: "x")
+        (expression
+          #[skip(depth = 8)]
+          (dec_int: "1")
+        )
+      )
+      (call_input
+        (identifier: "y")
+        (expression
+          #[skip(depth = 8)]
+          (boolean: "false")
+        )
+      )
+    )
+    (conditional
+      (expression
+        #[skip(depth = 3)]
+        (comparison
+          #[skip(depth = 4)]
+          (dec_int: "1")
+          (gt: ">")
+          #[skip(depth = 4)]
+          (dec_int: "2")
+        )
+      )
+      (scatter
+        (identifier: "file")
+        (expression
+          #[skip(depth = 8)]
+          (identifier: "file_array")
+        )
+        (call
+          (qualified_identifier
+            (identifier: "task1")
+          )
+          (call_input
+            (identifier: "file")
+          )
+          (call_input
+            (identifier: "ex")
+          )
+          (call_input
+            (identifier: "docker_image")
+            (expression
+              #[skip(depth = 8)]
+              (dquote_string
+                (dquote_literal: "ubuntu")
+              )
+            )
+          )
+        )
+      )
+    )
+    (output
+      (bound_declaration
+        (typedef
+          (array_type
+            (typedef
+              (primitive_type: "File")
+            )
+          )
+          (optional: "?")
+        )
+        (identifier: "f")
+        (expression
+          #[skip(depth = 7)]
+          (access
+            (identifier: "task1")
+            (field
+              (identifier: "name_file")
+            )
+          )
+        )
+      )
+    )
+    (meta
+      (meta_attribute
+        (identifier: "description")
+        (simple_dquote_string
+          (simple_dquote_literal: "Test workflow")
+        )
+      )
+      (meta_attribute
+        (identifier: "test")
+        (boolean: "true")
+      )
+      (meta_attribute
+        (identifier: "size")
+        (meta_number
+          (dec_int: "10")
+        )
+      )
+      (meta_attribute
+        (identifier: "numbers")
+        (meta_array
+          (meta_number
+            (dec_int: "1")
+          )
+          (meta_number
+            (dec_int: "2")
+          )
+          (meta_number
+            (dec_int: "3")
+          )
+        )
+      )
+      (meta_attribute
+        (identifier: "keywords")
+        (meta_object
+          (meta_object_field
+            (identifier: "a")
+            (meta_number
+              (float: "1.0")
+            )
+          )
+          (meta_object_field
+            (identifier: "b")
+            (meta_number
+              (neg: "-")
+              (dec_int: "1")
+            )
+          )
+        )
+      )
+      (meta_attribute
+        (identifier: "x")
+        (null: "null")
+      )
+    )
+  )
+  (task
+    (identifier: "Task1")
+    (input
+      (unbound_declaration
+        (typedef
+          (primitive_type: "File")
+        )
+        (identifier: "file")
+      )
+      (unbound_declaration
+        (typedef
+          (user_type
+            (identifier: "Example2")
+          )
+          (optional: "?")
+        )
+        (identifier: "ex")
+      )
+      (unbound_declaration
+        (typedef
+          (primitive_type: "String")
+        )
+        (identifier: "docker_image")
+      )
+    )
+    (command_heredoc
+      (command_heredoc_literal: "\n    echo ")
+      (tilde_placeholder
+        (expression
+          #[skip(depth = 8)]
+          (identifier: "file")
+        )
+      )
+      (command_heredoc_literal: " \\\n      | cat\n    ")
+    )
+    (output
+      (bound_declaration
+        (typedef
+          (primitive_type: "File")
+        )
+        (identifier: "name_file")
+        (expression
+          #[skip(depth = 8)]
+          (apply
+            (identifier: "stdout")
+          )
+        )
+      )
+    )
+    (runtime
+      (runtime_attribute
+        (identifier: "container")
+        (expression
+          #[skip(depth = 8)]
+          (identifier: "docker_image")
+        )
+      )
+    )
+    (meta
+      (meta_attribute
+        (identifier: "description")
+        (simple_dquote_string
+          (simple_dquote_literal: "write name to file")
+        )
+      )
+    )
+  )
+)
