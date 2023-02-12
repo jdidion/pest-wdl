@@ -225,7 +225,7 @@ workflow_kw = _{ "workflow" }
 or = { "||" }
 and = { "&&" }
 eq = { "==" }
-ne = { "!=" }
+neq = { "!=" }
 gte = { ">=" }
 gt = { ">" }
 lte = { "<=" }
