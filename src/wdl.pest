@@ -114,56 +114,56 @@ expression = { ternary | disjunction }
       equality = { comparison ~ ( ( eq | ne ) ~ comparison )* }
         comparison = { math1 ~ ( ( gte | lte | gt | lt ) ~ math1 )* }
           math1 = { math2 ~ ( ( add | sub ) ~ math2 )* }
-            math2 = { unary ~ ( ( mul |   div | mod ) ~ unary )* }
+            math2 = { unary ~ ( ( mul | div | rem ) ~ unary )* }
               unary = { ( sign | not )? ~ access }
                 access = { ( apply | primary ) ~ ( index | field )* }
                   index = { list_start ~ expression ~ list_end }
                   field = { field_sep ~ identifier }
-                apply = { identifier ~ 
-                    group_start ~ ( expression ~ ( list_sep ~ expression )* ~ list_sep? )? ~ group_end 
-                }
-                primary = _{ literal | identifier | group }
-                  literal = _{ none | boolean | float | int | string | pair | array | map | object }
-                    none = { "None" }
-                    string = _{ squote_string | dquote_string }
-                      tilde_placeholder = !{ tilde_placeholder_start ~ expression ~ block_end }
-                      dollar_placeholder = !{ dollar_placeholder_start ~ expression ~ block_end }
-                      squote_string = ${ squote ~ squote_string_part* ~ squote }
-                        squote_string_part = _{
-                          squote_escape_sequence | tilde_placeholder | dollar_placeholder | squote_literal 
-                        }
-                          squote_escape_sequence = @{ 
-                            escape ~ ( "'" | "n" | "t" | "~" | "$" | "\\" | number_escape_sequence ) 
+                  apply = { identifier ~ 
+                      group_start ~ ( expression ~ ( list_sep ~ expression )* ~ list_sep? )? ~ group_end 
+                  }
+                  primary = _{ literal | identifier | group }
+                    literal = _{ none | boolean | float | int | string | pair | array | map | object }
+                      none = { "None" }
+                      string = _{ squote_string | dquote_string }
+                        tilde_placeholder = !{ tilde_placeholder_start ~ expression ~ block_end }
+                        dollar_placeholder = !{ dollar_placeholder_start ~ expression ~ block_end }
+                        squote_string = ${ squote ~ squote_string_part* ~ squote }
+                          squote_string_part = _{
+                            squote_escape_sequence | tilde_placeholder | dollar_placeholder | squote_literal 
                           }
-                          squote_literal = @{ ( !squote_literal_exclude ~ ANY )+ }
-                            squote_literal_exclude = _{
-                              squote | tilde_placeholder_start | dollar_placeholder_start | escape | NEWLINE
+                            squote_escape_sequence = @{ 
+                              escape ~ ( "'" | "n" | "t" | "~" | "$" | "\\" | number_escape_sequence ) 
                             }
-                      dquote_string = ${ dquote ~ dquote_string_part* ~ dquote }
-                        dquote_string_part = _{
-                          dquote_escape_sequence | tilde_placeholder | dollar_placeholder | dquote_literal 
-                        }
-                          dquote_escape_sequence = @{ 
-                            escape ~ ( "\"" | "n" | "t" | "~" | "$" | "\\" | number_escape_sequence ) 
+                            squote_literal = @{ ( !squote_literal_exclude ~ ANY )+ }
+                              squote_literal_exclude = _{
+                                squote | tilde_placeholder_start | dollar_placeholder_start | escape | NEWLINE
+                              }
+                        dquote_string = ${ dquote ~ dquote_string_part* ~ dquote }
+                          dquote_string_part = _{
+                            dquote_escape_sequence | tilde_placeholder | dollar_placeholder | dquote_literal 
                           }
-                          dquote_literal = @{ ( !dquote_literal_exclude ~ ANY )+ }
-                            dquote_literal_exclude = _{
-                              dquote | tilde_placeholder_start | dollar_placeholder_start | escape | NEWLINE
+                            dquote_escape_sequence = @{ 
+                              escape ~ ( "\"" | "n" | "t" | "~" | "$" | "\\" | number_escape_sequence ) 
                             }
-                    pair = { group_start ~ expression ~ list_sep ~ expression ~ group_end }
-                    array = { 
-                      list_start ~ ( expression ~ ( list_sep ~ expression )* ~ list_sep? )? ~ list_end 
-                    }
-                    map = { 
-                      block_start ~ ( map_entry ~ ( list_sep ~ map_entry )* ~ list_sep? )? ~ block_end 
-                    }
-                      map_entry = { expression ~ kv_sep ~ expression }
-                    object = { 
-                      identifier ~ block_start ~ 
-                      ( object_field ~ ( list_sep ~ object_field )* ~ list_sep? )? ~ block_end 
-                    }
-                      object_field = { identifier ~ kv_sep ~ expression }
-                  group = { group_start ~ expression ~ group_end }
+                            dquote_literal = @{ ( !dquote_literal_exclude ~ ANY )+ }
+                              dquote_literal_exclude = _{
+                                dquote | tilde_placeholder_start | dollar_placeholder_start | escape | NEWLINE
+                              }
+                      pair = { group_start ~ expression ~ list_sep ~ expression ~ group_end }
+                      array = { 
+                        list_start ~ ( expression ~ ( list_sep ~ expression )* ~ list_sep? )? ~ list_end 
+                      }
+                      map = { 
+                        block_start ~ ( map_entry ~ ( list_sep ~ map_entry )* ~ list_sep? )? ~ block_end 
+                      }
+                        map_entry = { expression ~ kv_sep ~ expression }
+                      object = { 
+                        identifier ~ block_start ~ 
+                        ( object_field ~ ( list_sep ~ object_field )* ~ list_sep? )? ~ block_end 
+                      }
+                        object_field = { identifier ~ kv_sep ~ expression }
+                    group = { group_start ~ expression ~ group_end }
                 
                 
 /* primitive literals */
@@ -234,7 +234,7 @@ add = { "+" }
 sub = { "-" }
 mul = { "*" }
 div = { "/" }
-mod = { "%" }
+rem = { "%" }
 not = { "!" }
 sign = _{ pos | neg }
 pos = { "+" }
