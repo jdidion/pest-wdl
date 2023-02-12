@@ -103,7 +103,7 @@ task Task1 {
     (namespace
       (identifier: "local")
     )
-    (alias
+    (import_alias
       (identifier: "Foo")
       (identifier: "Bar")
     )
@@ -115,7 +115,7 @@ task Task1 {
     (namespace
       (identifier: "remote")
     )
-    (alias
+    (import_alias
       (identifier: "Baz")
       (identifier: "Blorf")
     )

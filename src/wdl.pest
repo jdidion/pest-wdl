@@ -2,9 +2,9 @@
 document = { SOI ~ version_kw ~ version ~ document_element+ ~ EOI }
   version = @{ "1" ~ ( "." ~ ASCII_DIGIT+ )+ }
   document_element = _{ import | structdef | task | workflow }
-    import = { import_kw ~ simple_string ~ namespace? ~ alias* }
+    import = { import_kw ~ simple_string ~ namespace? ~ import_alias* }
       namespace = { as_kw ~ identifier }
-      alias = { alias_kw ~ identifier ~ as_kw ~ identifier }
+      import_alias = { alias_kw ~ identifier ~ as_kw ~ identifier }
     structdef = { struct_kw ~ identifier ~ block_start ~ unbound_declaration* ~ block_end }
     task = { task_kw ~ identifier ~ block_start ~ task_element+ ~ block_end }
       task_element = _{ common_element | bound_declaration | command | runtime }
@@ -222,8 +222,8 @@ version_kw = _{ "version" }
 workflow_kw = _{ "workflow" }
 
 /* operators */
-or = _{ "||" }
-and = _{ "&&" }
+or = { "||" }
+and = { "&&" }
 eq = { "==" }
 ne = { "!=" }
 gte = { ">=" }

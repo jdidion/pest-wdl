@@ -549,6 +549,7 @@ workflow Test {
         (conjunction
           #[skip(depth = 6)]
           (boolean: "true")
+          (and: "&&")
           #[skip(depth = 6)]
           (boolean: "false")
         )
@@ -585,6 +586,7 @@ workflow Test {
             #[skip(depth = 4)]
             (dec_int: "2")
           )
+          (or: "||")
           #[skip(depth = 1)]
           (equality
             #[skip(depth = 5)]
@@ -612,6 +614,7 @@ workflow Test {
                   (disjunction
                     #[skip(depth = 7)]
                     (boolean: "true")
+                    (or: "||")
                     #[skip(depth = 7)]
                     (boolean: "false")
                   )
