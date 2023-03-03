@@ -15,7 +15,9 @@ workflow Foo {
 ========
 
 (document
-  (version: "1.1")
+  (version
+    (version_identifier: "1.1")
+  )
   (COMMENT: "# comment 1")
   (workflow
     (identifier: "Foo")

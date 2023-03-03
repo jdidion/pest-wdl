@@ -95,7 +95,9 @@ task Task1 {
 ==================
 
 (document
-  (version: "1.1")
+  (version
+    (version_identifier: "1.1")
+  )
   (import
     (simple_dquote_string
       (simple_dquote_literal: "local.wdl")
@@ -159,10 +161,12 @@ task Task1 {
     )
     (unbound_declaration
       (typedef
-        (array_type
-          (typedef
-            (primitive_type: "File")
-            (optional: "?")
+        (non_empty_array_type
+          (array_type
+            (typedef
+              (primitive_type: "File")
+              (optional: "?")
+            )
           )
           (non_empty: "+")
         )
@@ -291,30 +295,34 @@ task Task1 {
       (call_alias
         (identifier: "bar")
       )
+      (call_inputs: "{}")
     )
     (call
       (qualified_identifier
         (identifier: "local")
         (identifier: "baz")
       )
+      (call_inputs: "{\n        input:\n    }")
     )
     (call
       (qualified_identifier
         (identifier: "remote")
         (identifier: "waldo")
       )
-      (call_input
-        (identifier: "x")
-        (expression
-          #[skip(depth = 8)]
-          (dec_int: "1")
+      (call_inputs
+        (call_input
+          (identifier: "x")
+          (expression
+            #[skip(depth = 8)]
+            (dec_int: "1")
+          )
         )
-      )
-      (call_input
-        (identifier: "y")
-        (expression
-          #[skip(depth = 8)]
-          (boolean: "false")
+        (call_input
+          (identifier: "y")
+          (expression
+            #[skip(depth = 8)]
+            (boolean: "false")
+          )
         )
       )
     )
@@ -339,18 +347,20 @@ task Task1 {
           (qualified_identifier
             (identifier: "task1")
           )
-          (call_input
-            (identifier: "file")
-          )
-          (call_input
-            (identifier: "ex")
-          )
-          (call_input
-            (identifier: "docker_image")
-            (expression
-              #[skip(depth = 8)]
-              (dquote_string
-                (dquote_literal: "ubuntu")
+          (call_inputs
+            (call_input
+              (identifier: "file")
+            )
+            (call_input
+              (identifier: "ex")
+            )
+            (call_input
+              (identifier: "docker_image")
+              (expression
+                #[skip(depth = 8)]
+                (dquote_string
+                  (dquote_literal: "ubuntu")
+                )
               )
             )
           )

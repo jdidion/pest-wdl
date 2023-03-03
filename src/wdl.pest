@@ -1,6 +1,7 @@
 /* document structure */
-document = { SOI ~ version_kw ~ version ~ document_element+ ~ EOI }
-  version = @{ "1" ~ ( "." ~ ASCII_DIGIT+ )+ }
+document = { SOI ~ version ~ document_element+ ~ EOI }
+  version = { version_kw ~ version_identifier }
+    version_identifier = @{ "1" ~ ( "." ~ ASCII_DIGIT+ )+ }
   document_element = _{ import | structdef | task | workflow }
     import = { import_kw ~ simple_string ~ namespace? ~ import_alias* }
       namespace = { as_kw ~ identifier }
@@ -59,13 +60,13 @@ document = { SOI ~ version_kw ~ version ~ document_element+ ~ EOI }
     }
       workflow_nested_element = _{ bound_declaration | call | scatter | conditional }
         call = { 
-          call_kw ~ qualified_identifier ~ call_alias? ~ ( block_start ~ call_inputs? ~ block_end )? 
+          call_kw ~ qualified_identifier ~ call_alias? ~ call_inputs?
         }
           qualified_identifier = { identifier ~ ( field_sep ~ identifier )* }
           call_alias = { as_kw ~ identifier }
-          call_inputs = _{ 
+          call_inputs = { block_start ~ ( 
             input_kw ~ kv_sep ~ ( call_input ~ ( list_sep ~ call_input )* ~ list_sep? )? 
-          }
+          )? ~ block_end }
           call_input = { identifier ~ ( assign ~ expression )? }
         scatter = { 
           scatter_kw ~ group_start ~ identifier ~ in_kw ~ expression ~ group_end ~ 
@@ -97,9 +98,13 @@ common_element = _{ input | output | meta | parameter_meta }
         meta_object_field = { identifier ~ kv_sep ~ meta_value }
 
 /* types */
-typedef = { ( primitive_type | array_type | map_type | pair_type | user_type ) ~ optional? }
+typedef = { 
+  ( primitive_type | non_empty_array_type | array_type | map_type | pair_type | user_type ) 
+  ~ optional? 
+}
   primitive_type = { "Boolean" | "Int" | "Float" | "String" | "File" | "Object" }
-  array_type = { array_kw ~ list_start ~ typedef ~ list_end ~ non_empty? }
+  non_empty_array_type = { array_type ~ non_empty }
+  array_type = { array_kw ~ list_start ~ typedef ~ list_end }
     non_empty = { "+" }
   map_type = { map_kw ~ list_start ~ typedef ~ list_sep ~ typedef ~ list_end }
   pair_type = { pair_kw ~ list_start ~ typedef ~ list_sep ~ typedef ~ list_end }
