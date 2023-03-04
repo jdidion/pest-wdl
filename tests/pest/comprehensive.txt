@@ -469,15 +469,17 @@ task Task1 {
         (identifier: "docker_image")
       )
     )
-    (command_heredoc
-      (command_heredoc_literal: "\n    echo ")
-      (tilde_placeholder
-        (expression
-          #[skip(depth = 8)]
-          (identifier: "file")
+    (command
+      (command_heredoc
+        (command_heredoc_literal: "\n    echo ")
+        (tilde_placeholder
+          (expression
+            #[skip(depth = 8)]
+            (identifier: "file")
+          )
         )
+        (command_heredoc_literal: " \\\n      | cat\n    ")
       )
-      (command_heredoc_literal: " \\\n      | cat\n    ")
     )
     (output
       (bound_declaration

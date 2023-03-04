@@ -9,7 +9,7 @@ document = { SOI ~ version ~ document_element+ ~ EOI }
     structdef = { struct_kw ~ identifier ~ block_start ~ unbound_declaration* ~ block_end }
     task = { task_kw ~ identifier ~ block_start ~ task_element+ ~ block_end }
       task_element = _{ common_element | bound_declaration | command | runtime }
-        command = _{ command_kw ~ ( command_heredoc | command_block ) }
+        command = { command_kw ~ ( command_heredoc | command_block ) }
           command_heredoc = ${ left_heredoc ~ command_heredoc_element* ~ right_heredoc }
             command_heredoc_element = _{ 
               command_heredoc_escape_sequence | tilde_placeholder | command_heredoc_literal 
