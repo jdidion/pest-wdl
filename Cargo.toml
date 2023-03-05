@@ -13,6 +13,11 @@ pest = "2.5.2"
 pest_derive = "2.5.2"
 
 [dev-dependencies]
+criterion = "0.4.0"
 lazy_static = "1.4.0"
 pest-test = { version = "0.1.5", path = "../pest-test/pest-test/" }
 pest-test-gen = { version = "0.1.6", path = "../pest-test/pest-test-gen" }
+
+[[bench]]
+name = "parser"
+harness = false
